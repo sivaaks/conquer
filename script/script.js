@@ -148,23 +148,15 @@ let hero = {
     const down = 40;
     const space = 32;
     if (isGameEnd === false) {
-      if (event.key == left && hero.left > 5) {
+      if (event.keyCode == left && hero.left > 5) {
         hero.left -= 10;
         document.querySelector("#hero").style.left = hero.left;
       }
-      if (event.key == right && hero.left < 1145) {
+      if (event.keyCode == right && hero.left < 1145) {
         hero.left += 10;
         document.querySelector("#hero").style.left = hero.left;
       }
-      //   if (event.keyCode==top && top<hero.top) {
-      //         hero.top-=10;
-      //         document.querySelector('#hero').style.top= hero.top;
-      //   }
-      //   if (event.keyCode==down) {
-      //         hero.top+=10;
-      //         document.querySelector('#hero').style.top= hero.top;
-      //   }
-      if (event.key == space) {
+      if (event.keyCode == space) {
         missiles.push({ left: hero.left + 20, top: hero.top - 20 });
         drawMissiles(missiles);
      }
