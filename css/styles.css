@@ -1,0 +1,92 @@
+#background {
+  background-image: url("/assets/background.png");
+  width: 1200px;
+  height: 800px;
+  position: absolute;
+}
+
+#hero {
+  background-image: url("/assets/hero.png");
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 700px;
+  left: 575px;
+}
+
+#enemies {
+  width: 1200px;
+  height: 800px;
+  position: absolute;
+  transition: transform 1s;
+}
+
+.enemy {
+  width: 50px;
+  height: 50px;
+  background-image: url("/assets/enemy.png");
+  position: absolute;
+  transition: transform 1s;
+}
+
+#missiles {
+  width: 1200px;
+  height: 800px;
+  position: absolute;
+}
+
+#explosion {
+  width: 1200px;
+  height: 800px;
+  position: absolute;
+}
+
+#score-container {
+  width: 1200px;
+  height: 800px;
+  position: absolute;
+}
+
+#score-text {
+  top: 85px;
+  left: 1075px;
+  position: absolute;
+  font-size: 36px;
+  color: white;
+  font-weight: bolder;
+}
+#score-heading {
+  top: 35px;
+  left: 1068px;
+  position: absolute;
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+}
+
+.explosion {
+  background-image: url("/assets/explosion.gif");
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  background-size: cover;
+}
+
+.missile1 {
+  background-image: url("/assets/missile1.png");
+  width: 10px;
+  height: 28px;
+  position: absolute;
+}
+.result {
+  font-size: 50px;
+  width: 490px;
+  height: 140px;
+  background-color: white;
+  color: black;
+  font-family: monospace;
+  position: absolute;
+  top: 310px;
+  right: 350px;
+  padding-left: 20px;
+}
