@@ -80,7 +80,7 @@ let hero = {
   function updateMissiles(missiles) {
     missiles = missiles.map((position) => ({
       ...position,
-      top: (position.top -= 15),
+      top: (position.top -= 10),
     }));
   }
 
