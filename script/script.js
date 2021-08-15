@@ -145,7 +145,7 @@ let hero = {
     if(soundType==='explosion') gameAudio=new Audio('/assets/explosion.mp3');
     if(soundType==='won') gameAudio=new Audio('/assets/won.mp3');
     if(soundType==='no-missile') gameAudio=new Audio('/assets/no-missile.mp3');
-    gameAudio.volume=0.40;
+    gameAudio.volume=0.20;
     gameAudio.play();
   }
 
