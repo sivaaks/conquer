@@ -113,10 +113,9 @@ let hero = {
     if (allEnemies > 0) {
       let enemiesSorted = enemies.sort();
       if (enemiesSorted[enemiesSorted.length - 1].top >= hero.top - 50) {
-        displayExplosion(hero.left, hero.top);
-        const heroIcon = (document.querySelector("#hero").style.display =
-          "none");
         playGameSound('gameover');
+        displayExplosion(hero.left, hero.top);
+        const heroIcon = (document.querySelector("#hero").style.display = "none");
         displayResult("Game over😕😕😕");
       }
     }
