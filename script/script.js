@@ -24,15 +24,32 @@ let hero = {
     { left: 900, top: 175 },
   ];
 
-  //drawEnemies(enemies);
   let score = 0;
   let isGameEnd = false;
+  let missileCount=20;
+
+  drawMissileCount(missileCount);
+  updateMissileCount(missileCount);
   updateScore();
 
   function updateScore() {
     document.querySelector("#score-text").innerText = score
       .toString()
       .padStart(3, "0");
+  }
+
+  function updateMissileCount(missileCount){
+  document.querySelector("#missile-count-text").innerText = missileCount;
+  }
+
+  function drawMissileCount(missileCount){
+    const eachMissileTop=30;
+    let eachMissileLeft=20;
+    document.querySelector("#missile-count").innerHTML = ``;
+    for(let eachMissile=0;eachMissile<missileCount;eachMissile++){
+      document.querySelector("#missile-count").innerHTML += `<div class="each-missile" style="left:${eachMissileLeft}; top:${eachMissileTop};"></div>`;
+      eachMissileLeft+=10;
+    }
   }
 
   function drawEnemies(enemies) {
@@ -127,6 +144,7 @@ let hero = {
     if(soundType==='missile') gameAudio=new Audio('/assets/missile.mp3');
     if(soundType==='explosion') gameAudio=new Audio('/assets/explosion.mp3');
     if(soundType==='won') gameAudio=new Audio('/assets/won.mp3');
+    if(soundType==='no-missile') gameAudio=new Audio('/assets/no-missile.mp3');
     gameAudio.volume=0.40;
     gameAudio.play();
   }
@@ -151,7 +169,6 @@ let hero = {
     drawMissiles(missiles);
     gameEnd();
   }, 20);
-  drawEnemies(enemies);
 
   document.onkeydown = function moveHero(event) {
     const left = 37;
@@ -169,9 +186,15 @@ let hero = {
         document.querySelector("#hero").style.left = hero.left;
       }
       if (event.keyCode == space) {
+        if (missileCount>0) {
         missiles.push({ left: hero.left + 20, top: hero.top - 20 });
         drawMissiles(missiles);
+        missileCount-=1;
         playGameSound('missile');
+        drawMissileCount(missileCount);
+        updateMissileCount(missileCount);
+        } else playGameSound('no-missile');
+
      }
     }
   };
