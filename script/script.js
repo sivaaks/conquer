@@ -26,11 +26,28 @@ let hero = {
 
   let score = 0;
   let isGameEnd = false;
+  let isGameRunning= false;
   let missileCount=20;
+  let game;
+  
 
+  welcomeScreen(true);
   drawMissileCount(missileCount);
   updateMissileCount(missileCount);
   updateScore();
+
+function welcomeScreen(isVisible){
+    const container = document.querySelector("#background");
+    const result = document.createElement("div");
+    container.append(result);
+  if(isVisible){
+    result.className = "result";
+    result.innerText = `Press S to start ` + ` Watch your volume`;
+  } if(!isVisible) {
+    document.querySelector('.result').style.display='none';
+  }
+    
+}
 
   function updateScore() {
     document.querySelector("#score-text").innerText = score
@@ -48,7 +65,7 @@ let hero = {
     document.querySelector("#missile-count").innerHTML = ``;
     for(let eachMissile=0;eachMissile<missileCount;eachMissile++){
       document.querySelector("#missile-count").innerHTML += `<div class="each-missile" style="left:${eachMissileLeft}; top:${eachMissileTop};"></div>`;
-      eachMissileLeft+=10;
+      eachMissileLeft+=12;
     }
   }
 
@@ -151,6 +168,7 @@ let hero = {
 
   function displayResult(gameResult) {
     isGameEnd = true;
+    isGameRunning=false;
     clearInterval(game);
     const container = document.querySelector("#background");
     const result = document.createElement("div");
@@ -161,14 +179,15 @@ let hero = {
     container.append(result);
   }
 
-  let game = setInterval(() => {
+  function runGame(){
     checkCollision(enemies, missiles);
     updateEnemies(enemies);
     drawEnemies(enemies);
     updateMissiles(missiles);
     drawMissiles(missiles);
     gameEnd();
-  }, 20);
+  }
+
 
   document.onkeydown = function moveHero(event) {
     const left = 37;
@@ -176,6 +195,7 @@ let hero = {
     const top = 38;
     const down = 40;
     const space = 32;
+    const keyS= 83;
     if (isGameEnd === false) {
       if (event.keyCode == left && hero.left > 5) {
         hero.left -= 10;
@@ -185,8 +205,15 @@ let hero = {
         hero.left += 10;
         document.querySelector("#hero").style.left = hero.left;
       }
+      if(event.keyCode==keyS){
+      if(!isGameRunning) {
+        welcomeScreen(false);
+        game=setInterval(runGame,20);
+        isGameRunning= true;
+      }
+    }
       if (event.keyCode == space) {
-        if (missileCount>0) {
+        if (missileCount>0 && isGameRunning) {
         missiles.push({ left: hero.left + 20, top: hero.top - 20 });
         drawMissiles(missiles);
         missileCount-=1;
