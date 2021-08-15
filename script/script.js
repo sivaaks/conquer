@@ -24,7 +24,7 @@ let hero = {
     { left: 900, top: 175 },
   ];
 
-  drawEnemies(enemies);
+  //drawEnemies(enemies);
   let score = 0;
   let isGameEnd = false;
   updateScore();
@@ -94,6 +94,7 @@ let hero = {
           missiles[missile].left <= enemies[enemy].left + 50
         ) {
           displayExplosion(enemies[enemy].left, enemies[enemy].top);
+          playGameSound('explosion');
           enemies.splice(enemy, 1);
           missiles.splice(missile, 1);
           score += 10;
@@ -107,6 +108,7 @@ let hero = {
     const allEnemies = enemies.length;
     if (allEnemies === 0) {
       displayResult("Conquered 🏆🏆🏆");
+      playGameSound('won');
     }
     if (allEnemies > 0) {
       let enemiesSorted = enemies.sort();
@@ -114,9 +116,20 @@ let hero = {
         displayExplosion(hero.left, hero.top);
         const heroIcon = (document.querySelector("#hero").style.display =
           "none");
+        playGameSound('gameover');
         displayResult("Game over😕😕😕");
       }
     }
+  }
+
+  function playGameSound(soundType){
+    let gameAudio;
+    if(soundType==='gameover') gameAudio= new Audio('/assets/game-over.wav');
+    if(soundType==='missile') gameAudio=new Audio('/assets/missile.mp3');
+    if(soundType==='explosion') gameAudio=new Audio('/assets/explosion.mp3');
+    if(soundType==='won') gameAudio=new Audio('/assets/won.mp3');
+    gameAudio.volume=0.40;
+    gameAudio.play();
   }
 
   function displayResult(gameResult) {
@@ -159,6 +172,7 @@ let hero = {
       if (event.keyCode == space) {
         missiles.push({ left: hero.left + 20, top: hero.top - 20 });
         drawMissiles(missiles);
+        playGameSound('missile');
      }
     }
   };
